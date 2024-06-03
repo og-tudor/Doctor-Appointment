@@ -11,8 +11,21 @@ public class TestDataUtil {
 
     public static SpecializationEntity createExampleSpecializationA() {
         return SpecializationEntity.builder()
-                .id(1L)
                 .name("Cardiology")
+                .doctorEntities(null)
+                .build();
+    }
+
+    public static SpecializationEntity createExampleSpecializationB() {
+        return SpecializationEntity.builder()
+                .name("Dermatology")
+                .doctorEntities(null)
+                .build();
+    }
+
+    public static SpecializationEntity createExampleSpecializationC() {
+        return SpecializationEntity.builder()
+                .name("Neurology")
                 .doctorEntities(null)
                 .build();
     }
@@ -42,4 +55,5 @@ public class TestDataUtil {
                 .date(null)
                 .build();
     }
+
 }

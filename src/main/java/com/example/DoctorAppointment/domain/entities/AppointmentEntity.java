@@ -17,6 +17,7 @@ import java.time.LocalDateTime;
 @Table(name = "appointments")
 public class AppointmentEntity {
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "patients_id")
     private Long id;
     private LocalDateTime date;
     private String patientName;

@@ -16,7 +16,6 @@ import java.util.Set;
 @Table(name = "patients")
 public class PatientEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "patients_id")
     private Long id;
     private String name;
     private Integer age;
