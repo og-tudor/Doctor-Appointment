@@ -58,16 +58,16 @@ public class DoctorServiceImpl implements DoctorService {
                 .orElseThrow(() -> new RuntimeException("Specialization not found with name " + specializationName));
 
         DoctorSpecialization doctorSpecialization = doctor.getDoctorSpecialization();
+//        only create a new DoctorSpecialization if it does not exist
         if (doctorSpecialization == null) {
             doctorSpecialization = new DoctorSpecialization();
             doctorSpecialization.setDoctor(doctor);
             doctor.setDoctorSpecialization(doctorSpecialization);
         }
 
-        doctorSpecialization.getSpecializations().add(specialization);
-        specialization.setDoctorSpecialization(doctorSpecialization);
+        doctorSpecialization.addSpecialization(specialization);
 
         doctorSpecializationRepository.save(doctorSpecialization);
-        return doctorRepository.save(doctor); // Salvează doctorul pentru a actualiza relațiile.
+        return doctorRepository.save(doctor);
     }
 }

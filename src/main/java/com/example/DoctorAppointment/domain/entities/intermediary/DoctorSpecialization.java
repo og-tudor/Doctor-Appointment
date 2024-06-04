@@ -27,4 +27,9 @@ public class DoctorSpecialization {
 
     @OneToMany(mappedBy = "doctorSpecialization", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<SpecializationEntity> specializations = new HashSet<>();
+
+    public void addSpecialization(SpecializationEntity specialization) {
+        specializations.add(specialization);
+        specialization.setDoctorSpecialization(this);
+    }
 }
