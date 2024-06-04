@@ -49,6 +49,7 @@ public class DoctorServiceImpl implements DoctorService {
         return doctorRepository.findAll();
     }
 
+    @Transactional
     @Override
     public DoctorEntity addSpecializationToDoctor(Long doctorId, String specializationName) {
         DoctorEntity doctor = doctorRepository.findById(doctorId)
@@ -57,12 +58,12 @@ public class DoctorServiceImpl implements DoctorService {
         SpecializationEntity specialization = specializationRepository.findById(specializationName)
                 .orElseThrow(() -> new RuntimeException("Specialization not found with name " + specializationName));
 
-        DoctorSpecialization doctorSpecialization = doctor.getDoctorSpecialization();
-//        only create a new DoctorSpecialization if it does not exist
-        if (doctorSpecialization == null) {
-            doctorSpecialization = new DoctorSpecialization();
+        DoctorSpecialization doctorSpecialization = doctorSpecializationRepository.findDSById(doctorId)
+                .orElse(new DoctorSpecialization());
+
+        if (doctorSpecialization.getDoctor() == null) {
             doctorSpecialization.setDoctor(doctor);
-            doctor.setDoctorSpecialization(doctorSpecialization);
+            doctor.getDoctorSpecializations().add(doctorSpecialization);
         }
 
         doctorSpecialization.addSpecialization(specialization);
