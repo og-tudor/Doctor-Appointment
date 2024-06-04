@@ -34,7 +34,7 @@ public class DoctorIntegrationTest {
     @Transactional
     public void testThatSpecializationCanBeCreatedAndRecalled() {
         SpecializationEntity specialization = TestDataUtil.createExampleSpecializationA();
-        DoctorEntity doctor = TestDataUtil.createExampleDoctorA(specialization);
+        DoctorEntity doctor = TestDataUtil.createExampleDoctorA();
         doctorRepository.save(doctor);
         Optional<DoctorEntity> result = doctorRepository.findById(doctor.getId());
         assert(result).isPresent();

@@ -39,6 +39,9 @@ public class DoctorSpecialization {
 
     public void addSpecialization(SpecializationEntity specialization) {
         specializations.add(specialization);
+        if (specialization.getDoctorSpecializations() == null) {
+            specialization.setDoctorSpecializations(new HashSet<>());
+        }
         specialization.getDoctorSpecializations().add(this);
     }
 

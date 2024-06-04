@@ -29,7 +29,7 @@ public class DoctorEntity {
 
     @OneToMany(mappedBy = "doctorEntity")
     @JsonIgnore
-    Set<AppointmentEntity> appointmentEntities = new HashSet<>();
+    private Set<AppointmentEntity> appointmentEntities = new HashSet<>();
 
     @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference

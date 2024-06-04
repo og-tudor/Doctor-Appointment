@@ -5,19 +5,21 @@ import com.example.DoctorAppointment.domain.entities.DoctorEntity;
 import com.example.DoctorAppointment.domain.entities.PatientEntity;
 import com.example.DoctorAppointment.domain.entities.SpecializationEntity;
 
+import java.util.HashSet;
+
 public class TestDataUtil {
     public TestDataUtil() {
     }
 
     public static SpecializationEntity createExampleSpecializationA() {
         return SpecializationEntity.builder()
-                .name("Cardiology")
+                .name("Dentist")
                 .build();
     }
 
     public static SpecializationEntity createExampleSpecializationB() {
         return SpecializationEntity.builder()
-                .name("Dermatology")
+                .name("Cardiology")
                 .build();
     }
 
@@ -27,11 +29,31 @@ public class TestDataUtil {
                 .build();
     }
 
-    public static DoctorEntity createExampleDoctorA(final SpecializationEntity specializationEntity) {
+    public static DoctorEntity createExampleDoctorA() {
         return DoctorEntity.builder()
-                .id(1L)
-                .name("John Doe")
-                .age(35)
+                .name("Cosmina")
+                .age(50)
+                .doctorSpecializations(new HashSet<>())
+                .appointmentEntities(new HashSet<>())
+                .build();
+    }
+
+    public static DoctorEntity createExampleDoctorB() {
+        return DoctorEntity.builder()
+                .name("Bob")
+                .age(70)
+                .doctorSpecializations(new HashSet<>())
+                .appointmentEntities(new HashSet<>())
+                .build();
+    }
+
+    public static DoctorEntity createExampleDoctorC() {
+        return DoctorEntity.builder()
+                .id(3L)
+                .name("Diana")
+                .age(25)
+                .doctorSpecializations(new HashSet<>())
+                .appointmentEntities(new HashSet<>())
                 .build();
     }
 
