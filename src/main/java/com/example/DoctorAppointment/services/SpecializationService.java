@@ -5,6 +5,12 @@ import org.springframework.stereotype.Service;
 
 public interface SpecializationService {
     SpecializationEntity createSpecialization(SpecializationEntity specializationEntity);
-//    method to add a Doctor to a specialization
-    SpecializationEntity addDoctorToSpecialization(String specializationId, Long doctorId);
+
+    SpecializationEntity getSpecializationById(String id);
+
+    SpecializationEntity deleteSpecializationById(String id);
+
+    Iterable<SpecializationEntity> getAllSpecializations();
+
+    SpecializationEntity updateSpecialization(SpecializationEntity specializationEntity);
 }

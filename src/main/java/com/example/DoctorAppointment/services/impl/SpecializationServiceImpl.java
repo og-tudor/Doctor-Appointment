@@ -24,12 +24,28 @@ public class SpecializationServiceImpl implements SpecializationService {
     }
 
     @Override
-    public SpecializationEntity addDoctorToSpecialization(String specializationId, Long doctorId) {
-        SpecializationEntity specializationEntity = specializationRepository.findById(specializationId)
-                .orElseThrow(() -> new RuntimeException("Specialization not found with id " + specializationId));
-        DoctorEntity doctorEntity = doctorRepository.findById(doctorId)
-                .orElseThrow(() -> new RuntimeException("Doctor not found with id " + doctorId));
-//        specializationEntity.getDoctorEntities().add(doctorEntity);
+    public SpecializationEntity getSpecializationById(String id) {
+        return specializationRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Specialization not found with id " + id));
+    }
+
+    @Override
+    public SpecializationEntity deleteSpecializationById(String id) {
+        SpecializationEntity specializationEntity = specializationRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Specialization not found with id " + id));
+        specializationRepository.delete(specializationEntity);
+        return specializationEntity;
+    }
+
+    @Override
+    public Iterable<SpecializationEntity> getAllSpecializations() {
+        return specializationRepository.findAll();
+    }
+
+    @Override
+    public SpecializationEntity updateSpecialization(SpecializationEntity specializationEntity) {
         return specializationRepository.save(specializationEntity);
     }
+
+
 }
