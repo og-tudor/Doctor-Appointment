@@ -1,6 +1,7 @@
 package com.example.DoctorAppointment.domain.entities;
 
 import com.example.DoctorAppointment.domain.entities.intermediary.DoctorSpecialization;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -27,6 +28,7 @@ public class DoctorEntity {
     private Integer age;
 
     @OneToMany(mappedBy = "doctorEntity")
+    @JsonIgnore
     Set<AppointmentEntity> appointmentEntities = new HashSet<>();
 
     @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL, orphanRemoval = true)
