@@ -12,21 +12,18 @@ public class TestDataUtil {
     public static SpecializationEntity createExampleSpecializationA() {
         return SpecializationEntity.builder()
                 .name("Cardiology")
-                .doctorEntities(null)
                 .build();
     }
 
     public static SpecializationEntity createExampleSpecializationB() {
         return SpecializationEntity.builder()
                 .name("Dermatology")
-                .doctorEntities(null)
                 .build();
     }
 
     public static SpecializationEntity createExampleSpecializationC() {
         return SpecializationEntity.builder()
                 .name("Neurology")
-                .doctorEntities(null)
                 .build();
     }
 
@@ -35,15 +32,27 @@ public class TestDataUtil {
                 .id(1L)
                 .name("John Doe")
                 .age(35)
-                .specializationEntity(specializationEntity)
                 .build();
     }
 
     public static PatientEntity createExamplePatientA() {
         return PatientEntity.builder()
-                .id(1L)
                 .name("Jane Doe")
                 .age(25)
+                .build();
+    }
+
+    public static PatientEntity createExamplePatientB() {
+        return PatientEntity.builder()
+                .name("Alice")
+                .age(30)
+                .build();
+    }
+
+    public static PatientEntity createExamplePatientC() {
+        return PatientEntity.builder()
+                .name("Bob")
+                .age(40)
                 .build();
     }
 
@@ -55,5 +64,6 @@ public class TestDataUtil {
                 .date(null)
                 .build();
     }
+
 
 }

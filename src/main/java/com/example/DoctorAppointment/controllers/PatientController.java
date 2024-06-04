@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @Log
+@RequestMapping("/patients")
 public class PatientController {
     private final PatientService patientService;
 
@@ -17,11 +18,30 @@ public class PatientController {
         this.patientService = patientService;
     }
 
-    @PostMapping(path = "/patients")
+    @PostMapping
     public ResponseEntity<PatientEntity> createPatient(@RequestBody PatientEntity patient) {
         log.info("Got specialization : " + patient.toString());
         PatientEntity savedEntity = patientService.createPatient(patient);
         ResponseEntity<PatientEntity> response = new ResponseEntity<>(savedEntity, HttpStatus.CREATED);
         return response;
     }
+
+    @GetMapping(path = "/{id}")
+    public ResponseEntity<PatientEntity> getPatientById(@PathVariable Long id) {
+        PatientEntity patient = patientService.getPatientById(id);
+        return new ResponseEntity<>(patient, HttpStatus.OK);
+    }
+
+    @DeleteMapping(path = "/{id}")
+    public ResponseEntity<PatientEntity> deletePatientById(@PathVariable Long id) {
+        PatientEntity patient = patientService.deletePatientById(id);
+        return new ResponseEntity<>(patient, HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping
+    public ResponseEntity<Iterable<PatientEntity>> getAllPatients() {
+        Iterable<PatientEntity> patients = patientService.getAllPatients();
+        return new ResponseEntity<>(patients, HttpStatus.OK);
+    }
 }
+
