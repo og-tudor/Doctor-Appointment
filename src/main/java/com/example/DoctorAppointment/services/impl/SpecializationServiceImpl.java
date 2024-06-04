@@ -29,7 +29,7 @@ public class SpecializationServiceImpl implements SpecializationService {
                 .orElseThrow(() -> new RuntimeException("Specialization not found with id " + specializationId));
         DoctorEntity doctorEntity = doctorRepository.findById(doctorId)
                 .orElseThrow(() -> new RuntimeException("Doctor not found with id " + doctorId));
-        specializationEntity.getDoctorEntities().add(doctorEntity);
+//        specializationEntity.getDoctorEntities().add(doctorEntity);
         return specializationRepository.save(specializationEntity);
     }
 }

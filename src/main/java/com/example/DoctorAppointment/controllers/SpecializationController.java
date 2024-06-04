@@ -19,22 +19,10 @@ public class SpecializationController {
 
     @PostMapping(path = "/specializations")
     public ResponseEntity<SpecializationEntity> createSpecialization(@RequestBody SpecializationEntity specialization) {
-        log.info("Got specialization : " + specialization.toString());
         SpecializationEntity savedEntity = specializationService.createSpecialization(specialization);
-        ResponseEntity<SpecializationEntity> response = new ResponseEntity<>(savedEntity, HttpStatus.CREATED);
-        return response;
+        log.info("Got specialization : " + savedEntity.toString());
+        return new ResponseEntity<>(savedEntity, HttpStatus.CREATED);
     }
-
-    @PostMapping(path = "/specializations/{specializationId}/doctors/{doctorId}")
-    public ResponseEntity<SpecializationEntity> addDoctorToSpecialization(@RequestBody SpecializationEntity specialization,
-                                                                          @PathVariable("specializationId") String specializationId,
-                                                                          @PathVariable("doctorId") Long doctorId) {
-        log.info("Got specialization : " + specialization.toString());
-        SpecializationEntity savedEntity = specializationService.addDoctorToSpecialization(specializationId, doctorId);
-        ResponseEntity<SpecializationEntity> response = new ResponseEntity<>(savedEntity, HttpStatus.CREATED);
-        return response;
-    }
-
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<String> handleRuntimeException(RuntimeException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
