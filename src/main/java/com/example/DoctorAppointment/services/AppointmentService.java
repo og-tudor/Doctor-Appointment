@@ -14,4 +14,6 @@ public interface AppointmentService {
     Iterable<AppointmentEntity> getAppointmentsByDoctorId(Long doctorId);
 
     Iterable<AppointmentEntity> getAppointmentsByPatientId(Long patientId);
+
+    AppointmentEntity updateAppointment(AppointmentEntity appointmentEntity);
 }

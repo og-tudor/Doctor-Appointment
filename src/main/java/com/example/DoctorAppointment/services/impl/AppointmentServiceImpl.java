@@ -40,26 +40,38 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     @Override
     public AppointmentEntity getAppointmentById(Long appointmentId) {
-        return null;
+        AppointmentEntity appointmentEntity = appointmentRepository.findById(appointmentId)
+                .orElseThrow(() -> new RuntimeException("Appointment not found"));
+        return appointmentEntity;
     }
 
     @Override
     public AppointmentEntity deleteAppointmentById(Long appointmentId) {
-        return null;
+        AppointmentEntity appointmentEntity = appointmentRepository.findById(appointmentId)
+                .orElseThrow(() -> new RuntimeException("Appointment not found"));
+        appointmentRepository.delete(appointmentEntity);
+        return appointmentEntity;
     }
 
     @Override
     public Iterable<AppointmentEntity> getAllAppointments() {
-        return null;
+        return appointmentRepository.findAll();
     }
 
     @Override
     public Iterable<AppointmentEntity> getAppointmentsByDoctorId(Long doctorId) {
-        return null;
+        Iterable<AppointmentEntity> appointmentEntities = appointmentRepository.findAllByDoctorEntityId(doctorId);
+        return appointmentEntities;
     }
 
     @Override
     public Iterable<AppointmentEntity> getAppointmentsByPatientId(Long patientId) {
-        return null;
+        Iterable<AppointmentEntity> appointmentEntities = appointmentRepository.findAllByPatientEntityId(patientId);
+        return appointmentEntities;
+    }
+
+    @Override
+    public AppointmentEntity updateAppointment(AppointmentEntity appointmentEntity) {
+        return appointmentRepository.save(appointmentEntity);
     }
 }
