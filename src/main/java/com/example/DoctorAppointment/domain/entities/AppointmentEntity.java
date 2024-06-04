@@ -20,7 +20,6 @@ public class AppointmentEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "patients_id")
     private Long id;
     private LocalDateTime date;
-    private String patientName;
     @ManyToOne
     @JoinColumn(name = "patient_id")
     private PatientEntity patientEntity;

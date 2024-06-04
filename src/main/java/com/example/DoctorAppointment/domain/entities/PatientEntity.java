@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -22,5 +23,5 @@ public class PatientEntity {
     private Integer age;
 
     @OneToMany(mappedBy = "patientEntity")
-    private Set<AppointmentEntity> appointmentEntities;
+    private Set<AppointmentEntity> appointmentEntities = new HashSet<>();
 }

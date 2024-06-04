@@ -26,6 +26,9 @@ public class DoctorEntity {
     private String name;
     private Integer age;
 
+    @OneToMany(mappedBy = "doctorEntity")
+    Set<AppointmentEntity> appointmentEntities = new HashSet<>();
+
     @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private Set<DoctorSpecialization> doctorSpecializations = new HashSet<>();
