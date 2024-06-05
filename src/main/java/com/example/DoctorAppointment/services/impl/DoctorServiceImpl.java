@@ -10,6 +10,9 @@ import com.example.DoctorAppointment.services.DoctorService;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.util.Set;
+import java.util.stream.Collectors;
+
 @Service
 public class DoctorServiceImpl implements DoctorService {
     private final DoctorRepository doctorRepository;
@@ -70,5 +73,17 @@ public class DoctorServiceImpl implements DoctorService {
 
         doctorSpecializationRepository.save(doctorSpecialization);
         return doctorRepository.save(doctor);
+    }
+
+    @Override
+    public Iterable<SpecializationEntity> getDoctorSpecialization(Long doctorId) {
+        DoctorEntity doctor = doctorRepository.findById(doctorId)
+                .orElseThrow(() -> new RuntimeException("Doctor not found with id " + doctorId));
+
+        Set<SpecializationEntity> specializations = doctorSpecializationRepository.findDSById(doctorId)
+                .map(DoctorSpecialization::getSpecializations)
+                .orElseThrow(() -> new RuntimeException("Doctor Specialization not found with doctor id " + doctorId));
+
+        return specializations;
     }
 }

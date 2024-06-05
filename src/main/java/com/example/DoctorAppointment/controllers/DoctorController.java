@@ -1,6 +1,7 @@
 package com.example.DoctorAppointment.controllers;
 
 import com.example.DoctorAppointment.domain.entities.DoctorEntity;
+import com.example.DoctorAppointment.domain.entities.SpecializationEntity;
 import com.example.DoctorAppointment.services.DoctorService;
 import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
@@ -49,6 +50,12 @@ public class DoctorController {
         log.info("Got doctor id : " + doctorId + " and specialization name : " + specializationName);
         DoctorEntity updatedDoctor = doctorService.addSpecializationToDoctor(doctorId, specializationName);
         return new ResponseEntity<>(updatedDoctor, HttpStatus.OK);
+    }
+
+    @GetMapping("/{doctorId}/specializations")
+    public ResponseEntity<Iterable<SpecializationEntity>> getDoctorSpecialization(@PathVariable Long doctorId) {
+        Iterable<SpecializationEntity> specializations = doctorService.getDoctorSpecialization(doctorId);
+        return new ResponseEntity<>(specializations, HttpStatus.OK);
     }
 
     @ExceptionHandler(RuntimeException.class)

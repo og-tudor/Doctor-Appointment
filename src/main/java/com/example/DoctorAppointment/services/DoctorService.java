@@ -13,4 +13,7 @@ public interface DoctorService {
     Iterable<DoctorEntity> getAllDoctors();
 
     DoctorEntity addSpecializationToDoctor(Long doctorId, String specializationName);
+
+//    get doctor specialization
+    Iterable<SpecializationEntity> getDoctorSpecialization(Long doctorId);
 }
