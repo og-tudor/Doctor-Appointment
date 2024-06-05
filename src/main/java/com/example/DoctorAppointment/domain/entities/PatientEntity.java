@@ -21,8 +21,10 @@ public class PatientEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
-    private String name;
-    private Integer age;
+    private String lastName;
+    private String surName;
+    private String email;
+    private String phoneNumber;
 
     @OneToMany(mappedBy = "patientEntity")
     @JsonIgnore

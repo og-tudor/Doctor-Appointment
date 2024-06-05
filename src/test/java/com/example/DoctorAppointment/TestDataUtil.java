@@ -59,22 +59,28 @@ public class TestDataUtil {
 
     public static PatientEntity createExamplePatientA() {
         return PatientEntity.builder()
-                .name("Jane Doe")
-                .age(25)
+                .lastName("Doe")
+                .surName("John")
+                .email("random_email@gmail.com")
+                .phoneNumber("1234567890")
                 .build();
     }
 
     public static PatientEntity createExamplePatientB() {
         return PatientEntity.builder()
-                .name("Alice")
-                .age(30)
+                .lastName("Kane")
+                .surName("Robert")
+                .email("kane_rober@gmail.com")
+                .phoneNumber("0987654321")
                 .build();
     }
 
     public static PatientEntity createExamplePatientC() {
         return PatientEntity.builder()
-                .name("Bob")
-                .age(40)
+                .lastName("Cristea")
+                .surName("Andrei")
+                .email("andrei123@yahoo.com")
+                .phoneNumber("0765432198")
                 .build();
     }
 

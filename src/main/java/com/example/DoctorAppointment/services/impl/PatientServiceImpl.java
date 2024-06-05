@@ -37,4 +37,9 @@ public class PatientServiceImpl implements PatientService {
         Iterable<PatientEntity> patientEntities = patientRepository.findAll();
         return patientEntities;
     }
+
+    @Override
+    public PatientEntity updatePatient(Long patientId, PatientEntity patientEntity) {
+        return patientRepository.save(patientEntity);
+    }
 }

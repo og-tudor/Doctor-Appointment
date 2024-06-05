@@ -43,5 +43,11 @@ public class PatientController {
         Iterable<PatientEntity> patients = patientService.getAllPatients();
         return new ResponseEntity<>(patients, HttpStatus.OK);
     }
+
+    @PutMapping(path = "/{id}")
+    public ResponseEntity<PatientEntity> updatePatient(@PathVariable Long id, @RequestBody PatientEntity patient) {
+        PatientEntity updatedEntity = patientService.updatePatient(id, patient);
+        return new ResponseEntity<>(updatedEntity, HttpStatus.OK);
+    }
 }
 

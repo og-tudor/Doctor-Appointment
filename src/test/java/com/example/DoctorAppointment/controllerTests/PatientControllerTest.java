@@ -46,11 +46,13 @@ public class PatientControllerTest {
 
         mockMvc.perform(post("/patients")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"name\": \"John Doe\", \"age\": 30}"))
+                        .content("{\"lastName\": \"Doe\", \"surName\": \"John\", \"email\": \"random_email@gmail.com\", \"phoneNumber\": \"1234567890\"}"))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id").value(patient.getId()))
-                .andExpect(jsonPath("$.name").value(patient.getName()))
-                .andExpect(jsonPath("$.age").value(patient.getAge()));
+                .andExpect(jsonPath("$.lastName").value(patient.getLastName()))
+                .andExpect(jsonPath("$.surName").value(patient.getSurName()))
+                .andExpect(jsonPath("$.email").value(patient.getEmail()))
+                .andExpect(jsonPath("$.phoneNumber").value(patient.getPhoneNumber()));
     }
 
     @Test
@@ -62,8 +64,10 @@ public class PatientControllerTest {
         mockMvc.perform(get("/patients/{id}", 1))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(patient.getId()))
-                .andExpect(jsonPath("$.name").value(patient.getName()))
-                .andExpect(jsonPath("$.age").value(patient.getAge()));
+                .andExpect(jsonPath("$.lastName").value(patient.getLastName()))
+                .andExpect(jsonPath("$.surName").value(patient.getSurName()))
+                .andExpect(jsonPath("$.email").value(patient.getEmail()))
+                .andExpect(jsonPath("$.phoneNumber").value(patient.getPhoneNumber()));
     }
 
 
@@ -77,22 +81,23 @@ public class PatientControllerTest {
     public void testGetPatients() throws Exception {
         PatientEntity patientA = TestDataUtil.createExamplePatientA();
         PatientEntity patientB = TestDataUtil.createExamplePatientB();
-        PatientEntity patientC = TestDataUtil.createExamplePatientC();
 
-        List<PatientEntity> patients = Arrays.asList(patientA, patientB, patientC);
+        List<PatientEntity> patients = Arrays.asList(patientA, patientB);
 
         when(patientService.getAllPatients()).thenReturn(patients);
 
         mockMvc.perform(get("/patients"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].id").value(patientA.getId()))
-                .andExpect(jsonPath("$[0].name").value(patientA.getName()))
-                .andExpect(jsonPath("$[0].age").value(patientA.getAge()))
+                .andExpect(jsonPath("$[0].lastName").value(patientA.getLastName()))
+                .andExpect(jsonPath("$[0].surName").value(patientA.getSurName()))
+                .andExpect(jsonPath("$[0].email").value(patientA.getEmail()))
+                .andExpect(jsonPath("$[0].phoneNumber").value(patientA.getPhoneNumber()))
                 .andExpect(jsonPath("$[1].id").value(patientB.getId()))
-                .andExpect(jsonPath("$[1].name").value(patientB.getName()))
-                .andExpect(jsonPath("$[1].age").value(patientB.getAge()))
-                .andExpect(jsonPath("$[2].id").value(patientC.getId()))
-                .andExpect(jsonPath("$[2].name").value(patientC.getName()))
-                .andExpect(jsonPath("$[2].age").value(patientC.getAge()));
+                .andExpect(jsonPath("$[1].lastName").value(patientB.getLastName()))
+                .andExpect(jsonPath("$[1].surName").value(patientB.getSurName()))
+                .andExpect(jsonPath("$[1].email").value(patientB.getEmail()))
+                .andExpect(jsonPath("$[1].phoneNumber").value(patientB.getPhoneNumber()));
+
     }
 }

@@ -10,4 +10,6 @@ public interface PatientService {
     PatientEntity deletePatientById(Long patientId);
 
     Iterable<PatientEntity> getAllPatients();
+
+    PatientEntity updatePatient(Long patientId, PatientEntity patientEntity);
 }
