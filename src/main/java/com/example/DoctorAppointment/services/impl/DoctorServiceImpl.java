@@ -1,8 +1,11 @@
 package com.example.DoctorAppointment.services.impl;
 
+import com.example.DoctorAppointment.domain.dto.DoctorDto;
+import com.example.DoctorAppointment.domain.entities.AppointmentEntity;
 import com.example.DoctorAppointment.domain.entities.DoctorEntity;
 import com.example.DoctorAppointment.domain.entities.SpecializationEntity;
 import com.example.DoctorAppointment.domain.entities.intermediary.DoctorSpecialization;
+import com.example.DoctorAppointment.persistenceRepository.AppointmentRepository;
 import com.example.DoctorAppointment.persistenceRepository.DoctorRepository;
 import com.example.DoctorAppointment.persistenceRepository.DoctorSpecializationRepository;
 import com.example.DoctorAppointment.persistenceRepository.SpecializationRepository;
@@ -10,21 +13,25 @@ import com.example.DoctorAppointment.services.DoctorService;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 public class DoctorServiceImpl implements DoctorService {
     private final DoctorRepository doctorRepository;
     private final DoctorSpecializationRepository doctorSpecializationRepository;
     private final SpecializationRepository specializationRepository;
+    private AppointmentRepository appointmentRepository;
 
     public DoctorServiceImpl(DoctorRepository doctorRepository,
                              DoctorSpecializationRepository doctorSpecializationRepository,
-                             SpecializationRepository specializationRepository) {
+                             SpecializationRepository specializationRepository,
+                             AppointmentRepository appointmentRepository) {
         this.doctorRepository = doctorRepository;
         this.doctorSpecializationRepository = doctorSpecializationRepository;
         this.specializationRepository = specializationRepository;
+        this.appointmentRepository = appointmentRepository;
     }
 
     @Override
@@ -85,5 +92,27 @@ public class DoctorServiceImpl implements DoctorService {
                 .orElseThrow(() -> new RuntimeException("Doctor Specialization not found with doctor id " + doctorId));
 
         return specializations;
+    }
+
+    public Iterable<DoctorDto> findAvailableDoctorsBySpecializationAndDate(String specializationId, LocalDateTime appointmentDate) {
+        // Find doctors by specialization
+        Iterable<DoctorEntity> doctorEntities = doctorSpecializationRepository.findDoctorsBySpecialization(specializationId);
+
+        // Convert DoctorEntity to DoctorDTO
+        Set<DoctorDto> doctorDTOs = new HashSet<>();
+        for (DoctorEntity doctorEntity : doctorEntities) {
+            doctorDTOs.add(new DoctorDto(doctorEntity.getId(), doctorEntity.getName(), doctorEntity.getAge()));
+        }
+
+        // Filter available doctors
+        Set<DoctorDto> availableDoctors = new HashSet<>();
+        for (DoctorDto doctor : doctorDTOs) {
+            Iterable<AppointmentEntity> appointments = appointmentRepository.findDoctorAvailability(doctor.getId(), appointmentDate);
+            if (!appointments.iterator().hasNext()) { // No appointments at this time, doctor is available
+                availableDoctors.add(doctor);
+            }
+        }
+
+        return availableDoctors;
     }
 }

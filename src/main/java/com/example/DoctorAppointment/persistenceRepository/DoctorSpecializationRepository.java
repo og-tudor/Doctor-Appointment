@@ -15,4 +15,8 @@ public interface DoctorSpecializationRepository extends JpaRepository<DoctorSpec
 
     @Query("SELECT ds FROM DoctorSpecialization ds WHERE ds.id = ?1")
     Optional<DoctorSpecialization> findDSById(Long doctorId);
+
+    // Query to find doctors by specialization
+    @Query("SELECT d FROM DoctorSpecialization ds JOIN ds.doctor d JOIN ds.specializations s WHERE s.id = ?1")
+    Iterable<DoctorEntity> findDoctorsBySpecialization(String specializationId);
 }

@@ -3,6 +3,7 @@ package com.example.DoctorAppointment.services.impl;
 import com.example.DoctorAppointment.domain.entities.AppointmentEntity;
 import com.example.DoctorAppointment.domain.entities.DoctorEntity;
 import com.example.DoctorAppointment.domain.entities.PatientEntity;
+import com.example.DoctorAppointment.domain.entities.SpecializationEntity;
 import com.example.DoctorAppointment.persistenceRepository.AppointmentRepository;
 import com.example.DoctorAppointment.persistenceRepository.DoctorRepository;
 import com.example.DoctorAppointment.persistenceRepository.PatientRepository;
@@ -73,5 +74,16 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Override
     public AppointmentEntity updateAppointment(AppointmentEntity appointmentEntity) {
         return appointmentRepository.save(appointmentEntity);
+    }
+
+    @Override
+    public AppointmentEntity createAppointment(AppointmentEntity appointmentEntity, SpecializationEntity specializationEntity) {
+//        the patient is already set in the appointment entity
+//        the doctor is not, need to find an available doctor with the specialization in that day
+//        DoctorEntity doctor = doctorRepository.findDoctorBySpecialization(specializationEntity.getId())
+//                .orElseThrow(() -> new RuntimeException("Doctor not found"));
+//        appointmentEntity.setDoctorEntity(doctor);
+//        return appointmentRepository.save(appointmentEntity);
+        return null;
     }
 }

@@ -1,6 +1,7 @@
 package com.example.DoctorAppointment.controllers;
 
 import com.example.DoctorAppointment.domain.entities.AppointmentEntity;
+import com.example.DoctorAppointment.domain.entities.SpecializationEntity;
 import com.example.DoctorAppointment.services.impl.AppointmentServiceImpl;
 import lombok.extern.java.Log;
 import org.springframework.http.HttpStatus;
@@ -22,6 +23,12 @@ public class AppointmentController {
                                                                @PathVariable Long doctorId,
                                                                @PathVariable Long patientId) {
         AppointmentEntity savedEntity = appointmentService.createAppointment(appointmentEntity, doctorId, patientId);
+        return new ResponseEntity<>(savedEntity, HttpStatus.CREATED);
+    }
+
+    @PostMapping
+    public ResponseEntity<AppointmentEntity> createAppointment(@RequestBody AppointmentEntity appointmentEntity, SpecializationEntity specializationEntity) {
+        AppointmentEntity savedEntity = appointmentService.createAppointment(appointmentEntity, specializationEntity);
         return new ResponseEntity<>(savedEntity, HttpStatus.CREATED);
     }
 

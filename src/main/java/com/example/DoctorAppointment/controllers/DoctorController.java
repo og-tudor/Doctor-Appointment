@@ -1,5 +1,6 @@
 package com.example.DoctorAppointment.controllers;
 
+import com.example.DoctorAppointment.domain.dto.DoctorDto;
 import com.example.DoctorAppointment.domain.entities.DoctorEntity;
 import com.example.DoctorAppointment.domain.entities.SpecializationEntity;
 import com.example.DoctorAppointment.services.DoctorService;
@@ -8,6 +9,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @RestController
 @RequestMapping("/doctors")
@@ -56,6 +60,18 @@ public class DoctorController {
     public ResponseEntity<Iterable<SpecializationEntity>> getDoctorSpecialization(@PathVariable Long doctorId) {
         Iterable<SpecializationEntity> specializations = doctorService.getDoctorSpecialization(doctorId);
         return new ResponseEntity<>(specializations, HttpStatus.OK);
+    }
+
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+
+    @GetMapping("/specializations/{specializationId}/date/{appointmentDate}")
+    public ResponseEntity<Iterable<DoctorDto>> findAvailableDoctorsBySpecializationAndDate(
+            @PathVariable String specializationId,
+            @PathVariable String appointmentDate) {
+
+        LocalDateTime date = LocalDateTime.parse(appointmentDate, formatter);
+        Iterable<DoctorDto> doctors = doctorService.findAvailableDoctorsBySpecializationAndDate(specializationId, date);
+        return new ResponseEntity<>(doctors, HttpStatus.OK);
     }
 
     @ExceptionHandler(RuntimeException.class)
